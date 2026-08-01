@@ -1,0 +1,126 @@
+/* Styles for homepage */
+
+body{
+    background:#F5F5F5;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.navbar{
+    background:#FFF1C2 !important;
+}
+
+.navbar-brand{
+    font-size:28px;
+    font-weight:bold;
+    color:#000000 !important;
+}
+
+.nav-link{
+    color:#000000 !important;
+    margin-left:15px;
+    font-weight:500;
+}
+
+.nav-link:hover{
+    color:#1d0c80 !important;
+}
+
+/* Styles for report page */
+/* General page styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* Header */
+header {
+  background: #000;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.tagline {
+  font-style: italic;
+  margin: 5px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Main form */
+main {
+  max-width: 600px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.report-form label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.report-form input,
+.report-form select,
+.report-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.radio-top {
+  display: flex;
+  flex-direction: column;   /* stack options vertically */
+  align-items: center;      /* center horizontally under heading */
+  margin: 20px 0;           /* spacing below heading */
+}
+
+.radio-top label {
+  margin: 8px 0;
+  font-size: 1.1em;
+}
+
+button {
+  background: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 50%;
+}
+
+button:hover {
+  background: #444;
+}
+
+.note {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 15px;
+}

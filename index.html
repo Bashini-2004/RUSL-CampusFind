@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusFind | Lost & Found Management System</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+
+    <div class="container">
+
+        <a  class="navbar-brand d-flex align-items-center" href="index.html">
+
+    <img src= "C:\Users\Bhashini\OneDrive\Documents\GitHub\RUSL-CampusFind\image\logo.png"
+         alt="CampusFind Logo"
+         width="50"
+         height="50"
+         class="me-2">
+
+    <span class="fw-bold">
+        CampusFind
+    </span>
+
+</a>
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="search.html">Search Items</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="report.html">Report Items</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                
+
+            </ul>
+
+            <div class="d-flex">
+
+                <a href="login.html"
+                   class="btn btn-outline-dark me-2">
+                    Login
+                </a>
+
+                <a href="register.html"
+                   class="btn btn-warning">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= HERO SECTION ================= -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6">
+
+                <h1 class="display-4 fw-bold">
+
+                    Lost Something?
+
+                </h1>
+
+                <h2 class="mb-4">
+                     <b> We're here to help!</b>
+
+                </h2>
+
+                <p class="lead">
+
+                    Search for lost items or report itemes you've found.
+
+                </p>
+
+                <a href="search.html"
+                   class="btn btn-warning btn-lg me-3">
+
+                    Search Items
+
+                </a>
+
+                <a href="report.html"
+                   class="btn btn-outline-dark btn-lg">
+
+                    Report Item
+
+                </a>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img src="C:\Users\Bhashini\OneDrive\Documents\GitHub\RUSL-CampusFind\image\logo.png"
+                     class="img-fluid"
+                     alt="CampusFind"
+                      width="400"
+                      height="300">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FEATURED ITEMS ================= -->
+
+<section class="container py-5">
+
+    <h2 class="text-left mb-5">
+
+      <h2 class="fw-bold">  Recent Lost Items </h2>
+
+    </h2>
+    <div class="text-end ">
+
+        <a href="search.html" class="btn btn-secondary btn-lg">
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <div class="card shadow">
+                <div class="row g-0 align-items-center">
+
+                <img src="C:\Users\Bhashini\OneDrive\Pictures\phone.jpeg"
+                alt="phone"
+                 width="120"
+                 height="120"
+                 class="card-img-fluid-right-top">
+                
+
+                <div class="card-body">
+
+                    <h5>Mobile Phone</h5>
+
+                    <p>
+
+                        Black Samsung Phone
+
+                    </p>
+                    <p class="card-text">
+                        <strong>Location:</strong> Cafeteria
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Date Found:</strong> 10 May 2026
+                    </p>
+
+                    <span class="badge bg-danger">
+
+                        Lost
+
+                    </span>
+                </div>
+
+            </div>
+    </div>
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow">
+
+                <img src="C:\Users\Bhashini\OneDrive\Pictures\project pictures\keys.jpg"
+                    alt="key"
+                    width="120"
+                    height="120"
+                    class="card-img-right-top ">
+
+                <div class="card-body">
+
+                    <h5>Key Set</h5>
+
+                    <p>
+
+                        3 Keys with Keychain
+
+                    </p>
+                    <p class="card-text">
+                        <strong>Location:</strong> Parking Area
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Date Found:</strong> 25 May 2025
+                    </p>
+
+                    <span class="badge bg-danger">
+
+                        Lost
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+    
+        <div class="col-md-4">
+
+            <div class="card shadow">
+
+                <img src="C:\Users\Bhashini\OneDrive\Pictures\umbrella.jpeg"
+                    alt="umbrella"
+                    width="120"
+                    height="120"
+                     class="card-img-right-top">
+
+                <div class="card-body">
+
+                    <h5>Umbrella</h5>
+
+                    <p>
+
+                        Black Umbrella
+
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Location:</strong> Cafetaria
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Date Found:</strong> 25 July 2026
+                    </p>
+                    <span class="badge bg-danger">
+
+                        Lost
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+</section>
+<!-- ================= RECENTLY FOUND ITEMS ================= -->
+
+
+                    
+<section class="container py-5">
+
+    <div class="text-left mb-5">
+
+        <h2 class="fw-bold">Recent Found Items</h2>
+
+    </div>
+    <div class="text-end mt-5">
+
+        <a href="search.html" class="btn btn-secondary btn-lg">
+
+            View All
+
+        </a>
+
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Item 1 -->
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <img src="C:\Users\Bhashini\OneDrive\Pictures\school bag.jpg"
+                    alt="school bag"
+                    width="120"
+                    height="120"
+                     class="card-img-right-top"
+                     alt="School Bag">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Black School Bag
+                    </h5>
+                    <p>
+
+                        Black Backpack
+
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Location:</strong> ICT Building
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Date Found:</strong> 25 July 2026
+                    </p>
+
+                    <span class="badge bg-success">
+                        Found
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Item 2 -->
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <img src="C:\Users\Bhashini\OneDrive\Pictures\id card.png"
+                     alt="id card"
+                     width="120"
+                     height="120"
+                     class="card-img-right top"
+                     alt="Student ID">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        Student ID Card
+                    </h5>
+                    <p>
+
+                        University Student Id Card
+
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Location:</strong> University Library
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Date Found:</strong> 24 July 2026
+                    </p>
+
+                    <span class="badge bg-success">
+                        Found
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Item 3 -->
+        <div class="col-md-4">
+
+            <div class="card shadow-sm h-100">
+
+                <img src="C:\Users\Bhashini\OneDrive\Pictures\project pictures\water.jpg"
+                     alt="water bottle"
+                     width="120"
+                     height="120"
+                     class="card-img-right top"
+                     alt="Water Bottle">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                         Water Bottle
+                    </h5>
+                    <p>
+
+                        Blue Water Bottle
+
+                    </p>
+
+                    <p class="card-text">z
+                        <strong>Location:</strong> Lecture Hall A
+                    </p>
+
+                    <p class="card-text">
+                        <strong>Date Found:</strong> 23 July 2026
+                    </p>
+
+                    <span class="badge bg-success">
+                        Found
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="bg-dark text-white text-end py-4">
+
+    <div class="container">
+        <p>
+
+            Privacy Policy | Terms of Use
+        </p>
+
+    </div>
+
+</footer>
+
+<!-- Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
