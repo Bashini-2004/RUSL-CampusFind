@@ -16,6 +16,19 @@ if (empty($email) || empty($password)) {
     exit;
 }
 
+// --- Domain restriction: only @tech.rjt.ac.lk emails allowed ---
+$allowedDomain = '@tec.rjt.ac.lk';
+
+if (
+    !filter_var($email, FILTER_VALIDATE_EMAIL) ||
+    substr($email, -strlen($allowedDomain)) !== $allowedDomain
+) {
+    $_SESSION['flash_error'] = "Only tec.rjt.ac.lk email addresses are allowed to log in.";
+    header('Location: login.php');
+    exit;
+}
+// --- End domain restriction ---
+
 try {
     $stmt = $pdo->prepare("SELECT user_id, full_name, email, password, role FROM users WHERE email = ? LIMIT 1");
     $stmt->execute([$email]);
@@ -39,7 +52,7 @@ try {
         $_SESSION['role']      = $user['role'];
 
         $_SESSION['flash_success'] = "Welcome back, " . htmlspecialchars($user['full_name']) . "!";
-        
+
         if ($user['role'] === 'admin') {
             header('Location: admin.php');
         } else {

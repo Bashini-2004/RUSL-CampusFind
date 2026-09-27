@@ -1,4 +1,9 @@
 <?php
+// about.php - About CampusFind
+$pageTitle = "About CampusFind";
+require_once __DIR__ . '/includes/header.php';
+?>
+
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-9">

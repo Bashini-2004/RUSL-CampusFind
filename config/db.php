@@ -53,21 +53,20 @@ function currentUser() {
  */
 function getItemImageUrl($imagePath, $itemName = 'Item') {
     if (!empty($imagePath)) {
-        $uploadsFile = __DIR__ . '/../uploads/' . $imagePath;
+        // Check in uploads/ first (user-uploaded photos)
+        $uploadsFile = __DIR__ . '/../uploads/' . basename($imagePath);
         if (file_exists($uploadsFile) && !is_dir($uploadsFile)) {
-            return 'uploads/' . htmlspecialchars($imagePath);
+            return 'uploads/' . htmlspecialchars(basename($imagePath));
         }
 
-        $imageFile = __DIR__ . '/../image/' . $imagePath;
+        // Check in image/ folder (stock/demo images)
+        $imageFile = __DIR__ . '/../image/' . basename($imagePath);
         if (file_exists($imageFile) && !is_dir($imageFile)) {
-            return 'image/' . htmlspecialchars($imagePath);
+            return 'image/' . htmlspecialchars(basename($imagePath));
         }
     }
-    if (file_exists(__DIR__ . '/../image/default_item.png')) {
-        return 'image/default_item.png';
-    }
-    if (file_exists(__DIR__ . '/../image/logo.png')) {
-        return 'image/logo.png';
-    }
-    return 'https://placehold.co/400x300/e2e8f0/475569?text=' . urlencode($itemName);
+
+    // No real image — show item name as a styled text placeholder (never the logo)
+    $label = urlencode(mb_strtoupper($itemName));
+    return 'https://placehold.co/400x220/f7f4ea/a08c3a?font=open-sans&text=' . $label;
 }

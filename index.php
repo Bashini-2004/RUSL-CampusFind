@@ -14,24 +14,29 @@ $foundStmt->execute();
 $recentFound = $foundStmt->fetchAll();
 
 /**
- * Safely resolve the image URL for an item.
- * - Sanitizes the stored filename with basename() to prevent path traversal.
- * - Only falls back to /image/ if a filename is actually present.
- * - Falls back to a generated placeholder if no local file exists.
+ * Returns the image URL if a real uploaded/item file exists, or NULL.
+ * Logo and default placeholder images are explicitly ignored.
  */
-function resolveItemImage(array $item): string
+function resolveItemImage(array $item): ?string
 {
+    // Files that are system images, not real item photos
+    $ignored = ['logo.png', 'default_item.png'];
+
     $filename = !empty($item['image_path']) ? basename($item['image_path']) : '';
 
-    if ($filename !== '' && file_exists(__DIR__ . '/uploads/' . $filename)) {
+    if ($filename === '' || in_array($filename, $ignored, true)) {
+        return null;
+    }
+
+    if (file_exists(__DIR__ . '/uploads/' . $filename) && !is_dir(__DIR__ . '/uploads/' . $filename)) {
         return 'uploads/' . htmlspecialchars($filename);
     }
 
-    if ($filename !== '' && file_exists(__DIR__ . '/image/' . $filename)) {
+    if (file_exists(__DIR__ . '/image/' . $filename) && !is_dir(__DIR__ . '/image/' . $filename)) {
         return 'image/' . htmlspecialchars($filename);
     }
 
-    return 'https://placehold.co/400x300/e9ecef/495057?text=' . urlencode($item['item_name']);
+    return null; // file not found on disk
 }
 
 /**
@@ -60,7 +65,14 @@ function renderItemCard(array $item, string $type): void
     <div class="col-md-4">
         <div class="card item-card shadow-sm h-100">
             <div class="item-img-container">
-                <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($item['item_name']) ?>">
+                <?php if ($imgSrc !== null): ?>
+                    <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($item['item_name']) ?>">
+                <?php else: ?>
+                    <div class="item-img-placeholder">
+                        <i class="bi bi-image placeholder-icon"></i>
+                        <span class="placeholder-name"><?= htmlspecialchars($item['item_name']) ?></span>
+                    </div>
+                <?php endif; ?>
                 <span class="badge <?= $badgeClass ?> item-type-badge"><?= $badgeLabel ?></span>
             </div>
             <div class="card-body d-flex flex-column">

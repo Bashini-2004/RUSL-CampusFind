@@ -85,7 +85,26 @@ $myItems = $stmt->fetchAll();
                                     </span>
                                 </td>
                                 <td>
-                                    <img src="<?= getItemImageUrl($item['image_path'] ?? '', $item['item_name']) ?>" alt="Thumbnail" class="rounded-3 border" style="width: 50px; height: 50px; object-fit: cover;">
+                                    <?php
+                                        $ignored = ['logo.png', 'default_item.png'];
+                                        $imgFile = !empty($item['image_path']) ? basename($item['image_path']) : '';
+                                        $thumbSrc = null;
+                                        if ($imgFile !== '' && !in_array($imgFile, $ignored, true)) {
+                                            $up = __DIR__ . '/uploads/' . $imgFile;
+                                            $im = __DIR__ . '/image/'   . $imgFile;
+                                            if (file_exists($up) && !is_dir($up))       $thumbSrc = 'uploads/' . htmlspecialchars($imgFile);
+                                            elseif (file_exists($im) && !is_dir($im))   $thumbSrc = 'image/'   . htmlspecialchars($imgFile);
+                                        }
+                                    ?>
+                                    <?php if ($thumbSrc !== null): ?>
+                                        <img src="<?= $thumbSrc ?>" alt="Thumbnail"
+                                             class="rounded-3 border"
+                                             style="width:50px;height:50px;object-fit:contain;background:#f7f4ea;padding:2px;">
+                                    <?php else: ?>
+                                        <div class="rounded-3 border"
+                                             style="width:50px;height:50px;background:linear-gradient(135deg,#f7f4ea,#ede8d6);">
+                                        </div>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <div class="fw-bold"><?= htmlspecialchars($item['item_name']) ?></div>

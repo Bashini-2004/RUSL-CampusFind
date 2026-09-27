@@ -8,32 +8,35 @@ $category    = trim($_GET['category'] ?? '');
 $location    = trim($_GET['location'] ?? '');
 $type        = trim($_GET['type'] ?? 'all');
 
-$sql = "SELECT * FROM items WHERE status = 'active'";
+$sql = "SELECT i.*, u.phone AS owner_phone, u.full_name AS owner_name
+        FROM items i
+        LEFT JOIN users u ON i.user_id = u.user_id
+        WHERE i.status = 'active'";
 $params = [];
 
 if (!empty($searchQuery)) {
-    $sql .= " AND (item_name LIKE ? OR description LIKE ?)";
+    $sql .= " AND (i.item_name LIKE ? OR i.description LIKE ?)";
     $params[] = "%{$searchQuery}%";
     $params[] = "%{$searchQuery}%";
 }
 
 if (!empty($category) && $category !== 'All Categories') {
-    $sql .= " AND category = ?";
+    $sql .= " AND i.category = ?";
     $params[] = $category;
 }
 
 if (!empty($location) && $location !== 'All Locations') {
-    $sql .= " AND location = ?";
+    $sql .= " AND i.location = ?";
     $params[] = $location;
 }
 
 if ($type === 'lost') {
-    $sql .= " AND report_type = 'lost'";
+    $sql .= " AND i.report_type = 'lost'";
 } elseif ($type === 'found') {
-    $sql .= " AND report_type = 'found'";
+    $sql .= " AND i.report_type = 'found'";
 }
 
-$sql .= " ORDER BY event_date DESC, item_id DESC";
+$sql .= " ORDER BY i.event_date DESC, i.item_id DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
@@ -124,29 +127,45 @@ $locations  = ['All Locations', 'Library', 'Cafeteria', 'Lecture Hall', 'Playgro
                 <div class="col-md-6 col-lg-4">
                     <div class="card item-card shadow-sm h-100">
                         <div class="item-img-container">
-                            <img src="<?= getItemImageUrl($item['image_path'] ?? '', $item['item_name']) ?>" alt="<?= htmlspecialchars($item['item_name']) ?>">
+                            <?php
+                                $ignored  = ['logo.png', 'default_item.png'];
+                                $imgFile  = !empty($item['image_path']) ? basename($item['image_path']) : '';
+                                $imgSrc   = null;
+
+                                if ($imgFile !== '' && !in_array($imgFile, $ignored, true)) {
+                                    $up = __DIR__ . '/uploads/' . $imgFile;
+                                    $im = __DIR__ . '/image/'   . $imgFile;
+                                    if (file_exists($up) && !is_dir($up)) {
+                                        $imgSrc = 'uploads/' . htmlspecialchars($imgFile);
+                                    } elseif (file_exists($im) && !is_dir($im)) {
+                                        $imgSrc = 'image/' . htmlspecialchars($imgFile);
+                                    }
+                                }
+                            ?>
+                            <?php if ($imgSrc !== null): ?>
+                                <img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($item['item_name']) ?>">
+                            <?php else: ?>
+                                <div class="item-img-placeholder">
+                                    <i class="bi bi-image placeholder-icon"></i>
+                                    <span class="placeholder-name"><?= htmlspecialchars($item['item_name']) ?></span>
+                                </div>
+                            <?php endif; ?>
                             <span class="badge <?= ($item['report_type'] === 'lost') ? 'bg-danger' : 'bg-success' ?> item-type-badge">
                                 <?= ucfirst(htmlspecialchars($item['report_type'])) ?>
                             </span>
                         </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-light text-dark border"><?= htmlspecialchars($item['category']) ?></span>
-                                <small class="text-muted"><i class="bi bi-clock me-1"></i><?= !empty($item['event_time']) ? htmlspecialchars(date('h:i A', strtotime($item['event_time']))) : 'N/A' ?></small>
-                            </div>
+                        <div class="card-body d-flex flex-column">
+                            <span class="category-border-box"><?= htmlspecialchars($item['category']) ?></span>
                             <h5 class="card-title"><?= htmlspecialchars($item['item_name']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars($item['description']) ?></p>
-                            
-                            <div class="item-meta">
-                                <div><i class="bi bi-geo-alt text-primary me-1"></i> <strong>Location:</strong> <?= htmlspecialchars($item['location']) ?></div>
-                                <div><i class="bi bi-calendar3 me-1"></i> <strong>Date:</strong> <?= date('d M Y', strtotime($item['event_date'])) ?></div>
-                            </div>
 
-                            <div class="mt-3 pt-2 border-top">
-                                <a href="mailto:<?= htmlspecialchars($item['contact_email']) ?>?subject=Regarding your <?= urlencode($item['report_type']) ?> item: <?= urlencode($item['item_name']) ?>" 
-                                   class="btn btn-outline-dark btn-sm w-100 fw-semibold">
-                                    <i class="bi bi-envelope me-1"></i> Contact <?= ($item['report_type'] === 'lost') ? 'Owner' : 'Finder' ?>
-                                </a>
+                            <div class="item-meta mb-3">
+                                <div><i class="bi bi-geo-alt"></i> <strong>Location:</strong> <?= htmlspecialchars($item['location']) ?></div>
+                                <div><i class="bi bi-calendar3"></i> <strong>Date:</strong> <?= date('d M Y', strtotime($item['event_date'])) ?></div>
+                                <?php if (!empty($item['event_time'])): ?>
+                                <div><i class="bi bi-clock"></i> <strong>Time:</strong> <?= htmlspecialchars(date('h:i A', strtotime($item['event_time']))) ?></div>
+                                <?php endif; ?>
+                                <div><i class="bi bi-telephone"></i> <strong>Phone:</strong> <?= !empty($item['owner_phone']) ? htmlspecialchars($item['owner_phone']) : 'Not provided' ?></div>
                             </div>
                         </div>
                     </div>
